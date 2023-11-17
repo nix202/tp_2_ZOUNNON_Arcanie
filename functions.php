@@ -41,7 +41,6 @@ function addressFields($id, $address = [], $display = false){
     $addressSelect = array(
         "type" => ["delivery", "facturation", "shipping", "billing", "other"],
         "city" => ["montreal", "laval", "toronto", "ottawa"],
-        "province" => ["quebec", "ontario"],
     );
 
     $addressHtml = '<div class="address" style="margin:10px">';
@@ -66,22 +65,17 @@ function addressFields($id, $address = [], $display = false){
         $addressHtml .= '<div class="col-md-4">';
         $hiddenClass = $display ? 'd-none hidden' : '';
         $addressHtml .= '<select id="' . $keyFor . '" class="' . $hiddenClass . '" name="' . $keyName . '" required>';
+        
+        $selected = "";
+        $selectedValue = "";
         forEach( $values as $value ){
-            $selected = "";
-            $selectedValue = "";
-            if($keyId === "type"){
-                if($value === $type){
-                    $selected = 'selected="selected"';
-                    $selectedValue = $type;
-                    break;
+            if($value === ${$keyId}){
+                $selected = 'selected="selected"';
+                $selectedValue = ${$keyId};
+                if($display){
+                    // break;
                 }
-            } elseif ($keyId === "city"){
-                if($value === $city){
-                    $selected = 'selected="selected"';
-                    $selectedValue = $city;
-                    break;
-                }
-            } 
+            }
 
             $addressHtml .= '<option value="' . $value . '" ' . $selected . '>' . ucfirst($value) . '</option>';
         }
@@ -96,17 +90,31 @@ function addressFields($id, $address = [], $display = false){
 }
 
 
-function buildPostAddressList()
+function buildInsertQuery($tableName, $inputList = [])
 {
-    $addressList = [];
-    foreach( $_POST as $key => $value ){
-        $fieldArr = explode('_', $key);
-        $addressId = $fieldArr[0];
-        $addressField = $fieldArr[1];
-
-        $addressList[$addressId] = $addressList[$addressId] ?? [];
-        $addressList[$addressId][$addressField] = $value;
+    $keyList = array_keys($inputList);
+    $keyStr = implode(',', $keyList);
+    $valuesArr = [];
+    foreach($inputList as $key => $value){
+        $valuesArr[] = $key === "street_nb" ? $value : "'" . $value . "'";
     }
+    return "INSERT INTO " . $tableName . "(" . $keyStr . ") VALUES (" . implode(',', $valuesArr) . ");";
+}
 
-    return $addressList;
+function createMysqlConnection(){
+    $server= 'localhost';
+    $surname ='root';
+    $pwd ="";
+    $db="ecom1_tp2";
+    $conn = mysqli_connect($server,$surname,$pwd,$db);
+    $conn = mysqli_connect('localhost','root','','ecom1_tp2');
+    var_dump($conn);
+    if ($conn) {
+        echo"connected to the $db database successfully";
+        global $conn;
+        return $conn;
+    } else {
+        echo"error : Not connected to the $db database";
+        return false;
+    }
 }

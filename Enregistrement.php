@@ -11,7 +11,7 @@ include_once ("functions.php");
     <title>Document</title>
 </head>
 <body>
-    <form action="../Accueil" method="POST">
+    <form action="Verification.php" method="POST">
         <fieldset>
             <legend>Enregistrement d'adresses </legend>
         <?php 
@@ -19,6 +19,8 @@ include_once ("functions.php");
         echo "<br>";
         ?>
         </fieldset>
+        <button type="submit" > confirmer  </button>
+
     </form>
     
 </body>

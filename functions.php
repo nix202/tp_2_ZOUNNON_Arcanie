@@ -75,3 +75,19 @@ function addressFields($id, $address = []){
 
     return $addressHtml;
 }
+
+
+function buildPostAddressList()
+{
+    $addressList = [];
+    foreach( $_POST as $key => $value ){
+        $fieldArr = explode('_', $key);
+        $addressId = $fieldArr[0];
+        $addressField = $fieldArr[1];
+
+        $addressList[$addressId] = $addressList[$addressId] ?? [];
+        $addressList[$addressId][$addressField] = $value;
+    }
+
+    return $addressList;
+}

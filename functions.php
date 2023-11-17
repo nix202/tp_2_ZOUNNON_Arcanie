@@ -3,14 +3,14 @@
 function enregistrement($num = 1){
     $html = "";
     for($i = 0; $i < $num ; $i++){
-        $html .= addressFields();
+        $html .= addressFields($i +1);
     }
 
     return  $html;
 }
 
-function addressFields($address = []){
-    $id = $address['id'] ?? 1;
+function addressFields($id, $address = []){
+    $id = $address['id'] ?? $id;
     $street = $address['street'] ?? "";
     $street_nb = $address['street_nb'] ?? 0;
     $zipCode = $address['zipcode'] ?? "";
@@ -45,18 +45,20 @@ function addressFields($address = []){
     );
 
     $addressHtml = '<div class="address" style="margin:10px">';
-    $addressHtml .= "Adresse:" . $id;
+    $addressHtml .= "Adresse: " . $id;
     forEach( $addressInput as $keyId => $keyDef ){
+        $keyName = $id . '_' . $keyId;
         $addressHtml .= '<div class="row col-md-12 ' . $keyId . '"  style="margin:2px">';
-        $addressHtml .= '<div class="col-md-4"><label for="' . $keyId . '">' . $keyDef["label"] . '</label></div>';
-        $addressHtml .= '<div class="col-md-4"><input type="' . $keyDef["type"] . '" id="' . $keyId . '" value="' . $keyDef["value"] . '" name="' . $keyId . '" ' . $keyDef["dataInput"] . '></div>';
+        $addressHtml .= '<div class="col-md-4"><label for="' . $keyName . '">' . $keyDef["label"] . '</label></div>';
+        $addressHtml .= '<div class="col-md-4"><input type="' . $keyDef["type"] . '" id="' . $keyName . '" value="' . $keyDef["value"] . '" name="' . $keyName . '" ' . $keyDef["dataInput"] . '></div>';
         $addressHtml .= '</div>';
     }
     
     forEach( $addressSelect as $keyId => $values ){
+        $keyName = $id . '_' . $keyId;
         $addressHtml .= '<div class="row col-md-12 ' . $keyId . '" style="margin:2px">';
-        $addressHtml .= '<div class="col-md-4"><label for="' . $keyId . '">' . ucfirst($keyId) . '</label></div>';
-        $addressHtml .= '<div class="col-md-4"><select id="' . $keyId . '" name="' . $keyId . '" required>';
+        $addressHtml .= '<div class="col-md-4"><label for="' . $keyName . '">' . ucfirst($keyId) . '</label></div>';
+        $addressHtml .= '<div class="col-md-4"><select id="' . $keyName . '" name="' . $keyName . '" required>';
         forEach( $values as $value ){
             $selected = "";
             if($keyId === "type"){

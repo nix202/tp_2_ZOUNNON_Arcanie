@@ -6,15 +6,11 @@
     <title>Document</title>
 </head>
 <body>
-    <form method="post" action="Enregistrement.php?num=2">
+    <form method="post" action="Enregistrement.php">
         <label for ="NombreAdresse" >NombreAdresse </label>
-        <input type="number" id="adresse" name="adresse" min="1" required="">
+        <input type="number" id="adresseNum" name="adresseNum" min="1" required="">
         <button type="submit" > confirmer  </button>
     </form>
-<?php 
-session_start();
-$_SESSION['num'] = 3;
-?>
 
 
 

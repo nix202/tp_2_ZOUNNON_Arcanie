@@ -12,7 +12,7 @@ function enregistrement($num = 1){
 function addressFields($id, $address = [], $display = false){
     $id = $address['id'] ?? $id;
     $street = $address['street'] ?? "";
-    $street_nb = $address['street_nb'] ?? 0;
+    $street_nb = $address['street_nb'] ?? "";
     $zipCode = $address['zipcode'] ?? "";
     $city = $address['city'] ?? "ottawa";
     $type = $address['type'] ?? "facturation";
@@ -21,19 +21,19 @@ function addressFields($id, $address = [], $display = false){
         "street" => array(
             "label" => "Street",
             "type" => $display ? "hidden" : "text",
-            "dataInput"=> 'maxlength="50" minlength="5" required',
+            "dataInput"=> 'maxlength="50" minlength="5" placeholder="min 5, max 50" required',
             "value"=> $street
         ),
         "street_nb" => array(
             "label" => "Street number",
             "type" => $display ? "hidden" : "number",
-            "dataInput"=> 'min="5" required',
+            "dataInput"=> 'min="5" placeholder="min 5" required',
             "value"=> $street_nb
         ),
         "zipcode" => array(
             "label" => "Zip code",
             "type" => $display ? "hidden" : "text",
-            "dataInput"=> 'maxlength="6" minlength="6" required',
+            "dataInput"=> 'maxlength="6" minlength="6" placeholder="6 caracteres" required',
             "value"=> $zipCode
         ),
     );
@@ -72,15 +72,12 @@ function addressFields($id, $address = [], $display = false){
             if($value === ${$keyId}){
                 $selected = 'selected="selected"';
                 $selectedValue = ${$keyId};
-                if($display){
-                    // break;
-                }
             }
 
             $addressHtml .= '<option value="' . $value . '" ' . $selected . '>' . ucfirst($value) . '</option>';
         }
         $addressHtml .= '</select>';
-        $addressHtml .= $display ? '<span>' . $selectedValue . '</span>' : '';
+        $addressHtml .= $display ? '<span>' . ucfirst($selectedValue) . '</span>' : '';
         $addressHtml .= '</div>';
         $addressHtml .= '</div>';
     }
@@ -88,7 +85,6 @@ function addressFields($id, $address = [], $display = false){
 
     return $addressHtml;
 }
-
 
 function buildInsertQuery($tableName, $inputList = [])
 {

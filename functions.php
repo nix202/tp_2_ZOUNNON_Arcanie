@@ -39,7 +39,8 @@ function addressFields($id, $address = []){
     );
 
     $addressSelect = array(
-        "type" => ["delivery", "facturaction"],
+        "type" => ["delivery", "factura
+        tion"],
         "city" => ["montreal", "laval", "toronto", "ottawa"],
         "province" => ["quebec", "ontario"],
     );

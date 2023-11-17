@@ -12,14 +12,16 @@ include_once ("functions.php");
 </head>
 <body>
 <form action="Sauvegarde.php" method="POST">
-<?php
-foreach($_POST as $id => $address) {
-    echo addressFields($id, $address, true);
-    echo "<br>";
-}
-?>
-    <a href="#" class="btn btn-primary" onclick="history.back()"> Precedent </a>
-    <button class="btn btn-primary" type="submit" > Confirmer  </button>
+    <fieldset>
+    <?php
+    foreach($_POST as $id => $address) {
+        echo addressFields($id, $address, true);
+        echo "<br>";
+    }
+    ?>
+    </fieldset>
+        <a href="#" class="btn btn-primary" onclick="history.back()"> Precedent </a>
+        <button class="btn btn-primary" type="submit" > Confirmer  </button>
 </form>
 </body>
 </html>

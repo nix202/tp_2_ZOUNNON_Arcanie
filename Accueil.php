@@ -10,7 +10,7 @@
     <form method="post" action="Enregistrement.php">
         <label for ="NombreAdresse" >NombreAdresse </label>
         <input type="number" id="adresseNum" name="adresseNum" min="1" required="">
-        <button type="submit" > confirmer  </button>
+        <button type="submit" > Confirmer  </button>
     </form>
 
 

@@ -18,7 +18,6 @@ $conn->autocommit = true;
 if ($conn) {     
     foreach ($_POST as $key => $def) {
         $query = buildInsertQuery("address", $def);
-        var_dump($query);
         mysqli_query ($conn, $query);
     }
     echo "<p>Succes</p>";
